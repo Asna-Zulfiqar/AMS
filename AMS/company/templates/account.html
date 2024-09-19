@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+
+
+    <!-- Section 1 -->
+    
+    <section id="section1">
+
+        <h2>Account Name: {{ accounts.account_name }}</h2>
+        <p>Balance: {{ accounts.balance}}</p>
+    </section>
+    
+    
+
+</body>
+</html>
+
