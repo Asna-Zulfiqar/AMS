@@ -10,18 +10,20 @@
 </head>
 <body>
 
-
-
     <!-- Section 1 -->
-    
     <section id="section1">
-
-        <h2>Account Name: {{ accounts.account_name }}</h2>
-        <p>Balance: {{ accounts.balance}}</p>
+        <h1>Accounts for {{ company.company_name }}</h1>
+        
+        <!-- Loop through the accounts -->
+        {% for account in accounts %}
+        <div class="account-details">
+            <h2>Account Name: {{ account.account_name }}</h2>
+            <p>Balance: {{ account.balance }}</p>
+        </div>
+        {% empty %}
+        <p>No accounts available for this company.</p>
+        {% endfor %}
     </section>
-    
-    
 
 </body>
 </html>
-
