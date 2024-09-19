@@ -10,17 +10,17 @@
 </head>
 <body>
 
-
-
     <!-- Section 1 -->
-    
     <section id="section1">
-        <p>Income: {{ income.income}}</p>
+        <h1>Income Records for {{ company.company_name }}</h1>
         
+        <!-- Loop through the income records -->
+        {% for income_record in income %}
+        <p>Income: {{ income_record.income }}</p>
+        {% empty %}
+        <p>No income records available for this company.</p>
+        {% endfor %}
     </section>
-    
-    
 
 </body>
 </html>
-
