@@ -22,11 +22,23 @@
         <a class="button" href="{% url 'create_account' company.id %}">Add Accounts</a>
         <a class="button" href="{% url 'add_income' company.id %}">Add Income</a>
     </section>
-
-    <section id="section1">
-        <h2>Users of {{company.company_name}}</h2>
-        <p></p>
+    <!-- Section 3 - Cards -->
+    <section id="section3">
+        <h2>Users of {{company.company_name}} </h2>
+        <div class="card-container">
+            {% for user in users %}
+            <div class="card">
+                <h3>{{ user.username }}</h3>
+                <p>First Name : {{ user.first_name }} </p>
+                <p>Last Name : {{ user.last_name}}</p>
+                <p>Report Permission : {{ user.report_perm }}</p>
+            </div>
+            {% empty %}
+            <p>No Users are in this Company</p>
+            {% endfor %}
+        </div>
     </section>
+
 
 </body>
 </html>

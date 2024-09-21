@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
-from .models import Accounts , Income , Company , CompanyUsers
+from .models import Accounts , Income , Company , CompanyUsers , Expense
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -16,14 +16,24 @@ class AddCompany(forms.ModelForm):
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Accounts
-        fields = ['company','account_name','balance']
+        fields = ['account_name','balance']
 
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['company' , 'income']
+        fields = ['income']
 
 class CompanyUserForm(forms.ModelForm):
     class Meta:
         model = CompanyUsers
         fields = ['first_name' , 'last_name' , 'relation_to' , 'username' , 'password']
+
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CompanyUsers
+        fields = ['username' , 'password']
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expense
+        fields = ['amount' , 'added_by']

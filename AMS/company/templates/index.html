@@ -16,11 +16,28 @@
     <section id="section1">
         <h2>Welcome to Account Management System</h2>
         <p>The account management feature involves creating, updating, and retrieving account details. Click to view Companies </p>
-        <a class="button" href="{% url 'sign_in' %}">Click Me</a>
+    </section>
+    <!-- Section 3 - Cards -->
+    <section id="section3">
+        <h2>Log In As per Permission</h2>
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="card">
+                <h3>Login as Admin</h3>
+                <p>Login through this link if you are Super Admin or an Admin/Owner of a Company or you want to register as an Admin/Owner of a Company.</p>
+                <a class="button" href="{% url 'sign_in' %}">SignIn/Login</a>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <h3>Login as a Regular User </h3>
+                <p>Login through this link if you a regular user of a Company</p>
+                <a class="button" href="{% url 'check_user' %}">Login</a>
+            </div>
+
+        </div>
     </section>
 
     
-
+    
 </body>
 </html>
-
