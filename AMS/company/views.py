@@ -83,7 +83,7 @@ def add_company(request):
         if form.is_valid():
             form.save()
             return redirect('owner')
-    else:
+    if request.method == 'GET':
         form = AddCompany()
         return render(request , 'add_company.html' , {'form':form}) 
        
@@ -98,9 +98,9 @@ def create_account(request, company_id):
             account.company = company
             account.save()
             return redirect('company_detail', company_id=company.id)
-    else:
+    if request.method == 'GET':
         form = AccountForm()
-    return render(request, 'create_account.html', { 'form': form ,'company': company})
+        return render(request, 'create_account.html', { 'form': form ,'company': company})
 
 
 @login_required
@@ -114,9 +114,9 @@ def add_income(request, company_id):
             income.company = company
             income.save()
             return redirect('company_detail', company_id=company.id)
-    else:
+    if request.method == 'GET':
         form = IncomeForm()
-    return render(request, 'add_income.html', { 'form': form ,'company': company})
+        return render(request, 'add_income.html', { 'form': form ,'company': company})
 
 def accounts(request , company_id):
     company = get_object_or_404(Company , id=company_id)
@@ -134,7 +134,7 @@ def company_user(request ):
         if form.is_valid():
             form.save()
             return redirect('owner')    
-    else:
+    if request.method == 'GET':
         form = CompanyUserForm()
         return render(request , 'add_user.html', {'form':form} )    
     
@@ -172,10 +172,9 @@ def submit_expense(request, company_id):
             expense.company = company 
             expense.save()
             return HttpResponse('Expense Added')
-    else:
+    if request.method == 'GET':
         form = ExpenseForm()
-
-    return render(request, 'submit_expense.html', {'form': form, 'company': company})
+        return render(request, 'submit_expense.html', {'form': form, 'company': company})
 
 @login_required
 def report_request(request , user_id):
