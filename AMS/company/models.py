@@ -47,14 +47,4 @@ class Expense(models.Model):
     def __str__(self):
         return f'{self.amount}'    
     
-
-
-
-class Report(models.Model):
-    company = models.ForeignKey(Company , on_delete=models.CASCADE , related_name='reports')
-    data = models.TextField()
-    generated_by = models.ForeignKey(CompanyUsers, on_delete=models.CASCADE, null=True, blank=True)
-    generated_on = models.DateTimeField(auto_now_add=True)  
-
-    def __str__(self):
-        return f'{self.generated_on}'    
+    
