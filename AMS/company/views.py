@@ -118,16 +118,19 @@ def add_income(request, company_id):
         form = IncomeForm()
         return render(request, 'add_income.html', { 'form': form ,'company': company})
 
+@login_required
 def accounts(request , company_id):
     company = get_object_or_404(Company , id=company_id)
     accounts = company.accounts.all()
     return render(request , 'account.html' , {'accounts': accounts})
 
+@login_required
 def income(request , company_id):
     company = get_object_or_404(Company , id = company_id)
     income = company.incomes.all()
     return render(request , 'income.html' , {'income':income})
 
+@login_required
 def company_user(request ):
     if request.method == 'POST':
         form = CompanyUserForm(request.POST)
@@ -154,14 +157,19 @@ def check_user(request):
         form = CustomUserForm()
         return render(request , 'company_user_login.html' , {'form':form})
 
-@login_required
 def company_user_view(request, user_id):
+    if not request.user.is_authenticated:
+        return redirect('check_user')
+    
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     company = company_user.relation_to 
-    return render(request, 'company_user_view.html', {'company_user': company_user,'company': company})
+    return render(request, 'company_user_view.html', {'company_user': company_user, 'company': company})
        
-@login_required       
+    
 def submit_expense(request, company_id):
+    if not request.user.is_authenticated:
+        return redirect('check_user')
+
     company = get_object_or_404(Company, id=company_id)
 
 
@@ -176,8 +184,11 @@ def submit_expense(request, company_id):
         form = ExpenseForm()
         return render(request, 'submit_expense.html', {'form': form, 'company': company})
 
-@login_required
+
 def report_request(request , user_id):
+    if not request.user.is_authenticated:
+        return redirect('check_user')
+    
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     if company_user.report_perm:
         company = company_user.relation_to
@@ -211,3 +222,4 @@ def admin_report(request, company_id):
     }
     
     return render(request, 'admin_report.html', context)
+
