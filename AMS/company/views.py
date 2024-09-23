@@ -158,8 +158,6 @@ def check_user(request):
         return render(request , 'company_user_login.html' , {'form':form})
 
 def company_user_view(request, user_id):
-    if not request.user.is_authenticated:
-        return redirect('check_user')
     
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     company = company_user.relation_to 
@@ -167,8 +165,6 @@ def company_user_view(request, user_id):
        
     
 def submit_expense(request, company_id):
-    if not request.user.is_authenticated:
-        return redirect('check_user')
 
     company = get_object_or_404(Company, id=company_id)
 
@@ -186,8 +182,6 @@ def submit_expense(request, company_id):
 
 
 def report_request(request , user_id):
-    if not request.user.is_authenticated:
-        return redirect('check_user')
     
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     if company_user.report_perm:
@@ -222,4 +216,3 @@ def admin_report(request, company_id):
     }
     
     return render(request, 'admin_report.html', context)
-
