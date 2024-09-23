@@ -3,12 +3,12 @@ from .models import Company, Accounts , Income , Expense , CompanyUsers
 from .forms import RegistrationForm , AccountForm , IncomeForm , AddCompany , CompanyUserForm , CustomUserForm , ExpenseForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required 
 
 def home(request):
     return render(request , 'index.html')
 
+@login_required
 def super_admin_view(request):
     companies = Company.objects.all()
     accounts = Accounts.objects.all()
@@ -63,13 +63,13 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 
- 
+@login_required
 def owner(request):
     companies = Company.objects.filter(owner = request.user)
     
     return render(request , 'owner.html' , {'companies' : companies })
 
-
+@login_required
 def company_detail(request , company_id):
     company = get_object_or_404(Company , id = company_id)
     users = company.company_users.all()
@@ -154,11 +154,13 @@ def check_user(request):
         form = CustomUserForm()
         return render(request , 'company_user_login.html' , {'form':form})
 
+@login_required
 def company_user_view(request, user_id):
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     company = company_user.relation_to 
     return render(request, 'company_user_view.html', {'company_user': company_user,'company': company})
        
+@login_required       
 def submit_expense(request, company_id):
     company = get_object_or_404(Company, id=company_id)
 
@@ -175,6 +177,7 @@ def submit_expense(request, company_id):
 
     return render(request, 'submit_expense.html', {'form': form, 'company': company})
 
+@login_required
 def report_request(request , user_id):
     company_user = get_object_or_404(CompanyUsers, id=user_id)
     if company_user.report_perm:
@@ -191,7 +194,8 @@ def report_request(request , user_id):
         return render(request, 'report.html', context)
     else:
         return HttpResponse('Access Denied due to Insufficient Permissions...')
-    
+
+@login_required    
 def admin_report(request, company_id):
     company = get_object_or_404(Company, id=company_id)
     company_users = CompanyUsers.objects.filter(relation_to=company)
@@ -208,7 +212,3 @@ def admin_report(request, company_id):
     }
     
     return render(request, 'admin_report.html', context)
-
-
-
-
