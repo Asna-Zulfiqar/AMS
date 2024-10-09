@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+</head>
+<body>
+
+    <!-- Form Section in a Container -->
+    <section id="extra-section" class="form-container">
+        <div class="form-wrapper">
+            <h2>Sign In</h2>
+            <form action="#" method="POST" class="custom-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" class="btn-submit">
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

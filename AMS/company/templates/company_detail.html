@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <section class="extra-section">
+        <h2>Company Name: {{ company.company_name }}</h2>
+        <p>Owned By: {{ company.owner }}</p>
+
+        <a class="btn-action" href="{% url 'company:add_account' company.id %}">Add Account</a>
+        <a class="btn-action" href="{% url 'company:add_income' company.id %}">Add Income</a>
+    </section>
+
+    <!-- Accounts Section -->
+     
+    <section class="extra-section">
+        <h2>Accounts</h2>
+    </section>
+
+    <section class="cards-section">
+        {% for account in accounts %}
+        <div class="card">
+            <h2>Account Name: {{ account.account_name }}</h2>
+            <p>Balance: {{ account.balance }} PKR</p>
+        
+        </div>
+        {% empty %}
+        <p>No Accounts Available</p>
+        {% endfor %}
+    </section>
+
+
+    <!-- Incomes Section -->
+
+    <section class="extra-section">
+        <h2>Incomes</h2>
+    </section>
+
+    <section class="cards-section">
+        {% for income in incomes %}
+        <div class="card">
+            <p>Amount: {{ income.income }} PKR </p>
+        </div>
+        {% empty %}
+        <p>No Incomes Available</p>
+        {% endfor %}
+    </section>
+
+    <!-- Users Section -->
+     
+    <section class="extra-section">
+        <h2>Users</h2>
+    </section>
+
+    <section class="cards-section">
+        {% for user in users %}
+        <div class="card">
+            <h4>{{ user.user.username }}</h4>
+            <p>First Name: {{ user.user.first_name }}</p>
+            <p>Last Name: {{ user.user.last_name }}</p>
+            <p>Report Permission: {{ user.report_perm }}</p>
+        </div>
+        {% empty %}
+        <p>No Users are in this Company</p>
+        {% endfor %}
+        
+    </section>
+
+</body>
+</html>

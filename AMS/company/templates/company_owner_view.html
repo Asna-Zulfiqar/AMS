@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Welcome to AMS</h1>
+        <p>Account Management System</p>
+    </header>   
+    
+    <section class="extra-section">
+        <h2>Admin Dashboard</h2>
+        <a class="btn-action" href="{% url 'company:add_company' %}">Add Company</a>
+        <a class="btn-action" href="{% url 'users:add_user' %}">Add Users</a>
+        <a class="btn-action" href="{% url 'users:admin_report' %}">Generate Report</a>
+
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section">
+        {% for company in companies %}
+        <div class="card">
+            <h2>{{ company.company_name }}</h2>
+            <p>Owned By : {{ company.owner }}</p>
+            <a class="btn-action" href="{% url 'company:company_detail' company.id %}">Company Detail</a>
+            
+        </div>
+        {% endfor %}
+    </section>
+
+
+
+</body>
+</html>

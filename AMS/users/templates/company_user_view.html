@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Welcome to AMS</h1>
+        <p>Account Management System</p>
+    </header>   
+    
+    <section class="extra-section">
+        <h2>Welcome {{ company_user.user.username }}!</h2>
+        <p> Company: {{ company.company_name }}</p>
+        
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section">
+        <div class="card">
+            <h2>{{ company.company_name }}</h2>
+            <p>Owned By : {{ company.owner }}</p>
+            <a class="btn-action" href="{% url 'users:user_report' company_user.id %}">Request Report</a>
+            <a class="btn-action" href="{% url 'company:submit_expense' company_user.id %}">Submit Expense</a>
+            
+        </div>
+    </section>
+
+
+
+</body>
+</html>

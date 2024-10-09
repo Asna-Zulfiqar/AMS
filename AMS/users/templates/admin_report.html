@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS Admin Report</title>
+
+    <link rel="stylesheet" href="{% static 'super.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Admin Report for Companies</h1>
+    </header>
+
+
+    <section id="owner-companies">
+        <h2>Companies Owned by {{ request.user.username }}</h2>
+        <ul>
+            {% for company in companies %}
+            <li>{{ company.company_name }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Company Users Section -->
+    <section id="company-users">
+        <h2>Company Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Company</th>
+                    <th>Report Permission</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in company_users %}
+                <tr>
+                    <td>{{ user.user.first_name }}</td>
+                    <td>{{ user.user.last_name }}</td>
+                    <td>{{ user.user.username }}</td>
+                    <td>{{ user.company.company_name }}</td>
+                    <td>{{ user.report_perm }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No company users available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Accounts Section -->
+    <section id="accounts">
+        <h2>Accounts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Balance</th>
+                    <th>Company</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <td>{{ account.account_name }}</td>
+                    <td>{{ account.balance }} PKR</td>
+                    <td>{{ account.company.company_name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No accounts available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Incomes Section -->
+    <section id="incomes">
+        <h2>Income Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Income</th>
+                    <th>Company</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <td>{{ income.income }} PKR</td>
+                    <td>{{ income.company.company_name }}</td> 
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No income records available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Expenses Section -->
+    <section id="expenses">
+        <h2>Expense Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Added By</th>
+                    <th>Approval Status</th>
+                    <th>Company</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.amount }}</td>
+                    <td>{{ expense.added_by.user.username }}</td>
+                    <td>{{ expense.approved|yesno:"Approved,Pending" }}</td>
+                    <td>{{ expense.company.company_name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No expenses available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>

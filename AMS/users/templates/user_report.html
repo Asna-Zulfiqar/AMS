@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS User Report</title>
+
+    <link rel="stylesheet" href="{% static 'super.css' %}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>User Report </h1>
+    </header>
+
+    <!-- Company Information -->
+    <section id="company-info">
+        <h2>Company: {{ company.company_name }}</h2>
+    </section>
+
+    <!-- Accounts Section -->
+    <section id="accounts">
+        <h2>Accounts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <td>{{ account.account_name }}</td>
+                    <td>{{ account.balance }} PKR</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No accounts available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Incomes Section -->
+    <section id="incomes">
+        <h2>Income Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Income</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <td>{{ income.income }} PKR</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="1">No income records available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Expenses Section -->
+    <section id="expenses">
+        <h2>Expense Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Added By</th>
+                    <th>Approval Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.amount }} PKR</td>
+                    <td>{{ expense.added_by.user.username }}</td>
+                    <td>{{ expense.approved|yesno:"Approved,Pending" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No expenses available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>

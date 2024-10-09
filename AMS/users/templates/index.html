@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Welcome to AMS</h1>
+        <p>Account Management System</p>
+    </header>
+
+    <!-- Extra Section -->
+    <section class="extra-section">
+        <h2>Login / SignIn</h2>
+        <p>To use AMS Login if you are an existing user or SignIn to become a Company Owner and continue using AMS.</p>
+        <a href="{% url 'users:log_in' %}" class="btn-action">Login</a>
+        <a  href="{% url 'users:sign_in' %}" class="btn-action">Sign In</a>
+    </section>
+
+</body>
+</html>
